@@ -1,30 +1,37 @@
 #ifndef STRUCT_CONSTANTS
 #define STRUCT_CONSTANTS
 #include <kipr/wombat.h>
-
+#define tuck 100
+#define yolk 0
+#define dangle 50
 #define gyro_axis_up_down()      (gyro_z())
 #define gyro_axis_left_right() 	 (gyro_x())
 #define gyro_axis_forward_back() (gyro_y())
-static const int target = 3;
+static const int MR=2;
+static const int ML=0;
+static const int lIR=1;
+static const int rIR=5;
+static const int frisbee = 3;
 static const int claw =2; 
-static const int lift = 1; ;
-
+static const int lift = 1; 
+static const int fris = 1;
 struct {
     int left,right;   
 }static const motors = {
     .left = 0,
     .right= 2,
+    
 };
 
 struct {
     int left, right;
     int black, white, midpoint;
 }static const irs = {
-    .left  = 3,
+    .left  = 1,
     .right = 5,
-    .black = 2300,
+    .black = 3000,
     .white = 300,
-    .midpoint =2300,
+    .midpoint =1600,
 };
 
 typedef int intfunc();
@@ -44,14 +51,19 @@ struct {
 struct {
     int min[4], max[4];
 }static const servos = {
-    .min = {300,	150,	727,	0000},//calibrate servo on ground 1800
-    .max = {1980,	1462,	1404,	2047}
+    .min = {0000,	100,	580,	150},//calibrate servo on ground 1800
+    .max = {0000,	1400,	1840,	1600}
 }; //ports:	 ^0		 ^1		 ^2		 ^3	
+//orange lego red lego parrallelel  1700 to reset claw
 
+//0=baby claw
+//1=arm
+//2=
+//3=frisbee
 struct {
     int et, light, slider;
 }static const analogs = {
-    .et = 0000,
+    .et = 2,
     .light = 0000,
     .slider = 0000
 };
