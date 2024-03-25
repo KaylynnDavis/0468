@@ -1,3 +1,12 @@
 void d(int speed,double distance);
 void wrapper(int speed, double distance);
 void s(int speed);
+void drawer();
+void starting_pos();
+void servo_pos_pole(int pole);
+void homeArm();
+void rock();
+void setup_for_purple();
+void setup_for_dropoff();
+void dropoff();
+void red_cube_approach();
