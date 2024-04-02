@@ -250,7 +250,7 @@ unsigned int smart_servoX(int port, int percent, unsigned int duration_ms, unsig
     new_message->duration_ms = duration_ms;
     new_message->end_ms = new_message->start_ms + duration_ms; 
     servo_hub.next_base_id += 4;
-    
+
     //memcpy(new_message,holding,sizeof(struct servo_message))
 
     mutex_lock(servo_hub.lock);
@@ -393,15 +393,15 @@ void demo_gyro_drive(int speed, double distance)
     speed *= sign(distance);
     int desired_speed = speed;
     double start_time = seconds(), target_time = seconds() + abs(speed)*0.0003;
-	
+
     distance = fabs(distance);
     while(seconds()-start< distance) {
         speed = desired_speed;
         if( target_time > seconds() ) {									//test case if past acceleration time window
             speed *= (seconds()<target_time)*(seconds()-start_time) /
-            (target_time-start_time) + (seconds()>=target_time); 		//equation for reducing speed for acceleration
+                (target_time-start_time) + (seconds()>=target_time); 		//equation for reducing speed for acceleration
         }
-		//printf("%f	",theta);
+        //printf("%f	",theta);
         mav(motors.left, speed - speed*theta*sign_speed/100000);
         mav(motors.right,speed + speed*theta*sign_speed/100000);
         msleep(10);
@@ -431,7 +431,9 @@ void demo_gyro_square_up(int speed) {
     freeze(motors.left);
     freeze(motors.right);
 }
-	int buffer(int sensor){
+
+//how dare you touch my holy grail -Reese
+int buffer(int sensor){
     int value = 0;
     int total = 0;
     int i = 0;
@@ -512,9 +514,37 @@ void square_up(int ending,int speed){
     }
 }
 void move(int l_speed,int r_speed){//basic moving function thats based off mav
- 
+
     //int    l_speed=65;
     // int r_speed=65;
     mav(MR,r_speed);
     mav(ML,l_speed);
+}
+
+// owen requested function -Reese
+void demo_gyro_drive_right_black(int speed, double distance)
+{
+    double theta=0;
+    int sign_speed = sign(speed) * sign(distance);
+    int reverse = sign(distance);
+    double start = seconds();
+    speed *= sign(distance);
+    int desired_speed = speed;
+    double start_time = seconds(), target_time = seconds() + abs(speed)*0.0003;
+
+    distance = fabs(distance);
+    while(seconds()-start< distance && !on_black(irs.right)) {
+        speed = desired_speed;
+        if( target_time > seconds() ) {									//test case if past acceleration time window
+            speed *= (seconds()<target_time)*(seconds()-start_time) /
+                (target_time-start_time) + (seconds()>=target_time); 		//equation for reducing speed for acceleration
+        }
+        //printf("%f	",theta);
+        mav(motors.left, speed - speed*theta*sign_speed/100000);
+        mav(motors.right,speed + speed*theta*sign_speed/100000);
+        msleep(10);
+        theta += gyro_z_bias() * reverse;
+    }
+    freeze(motors.left);
+    freeze(motors.right);
 }

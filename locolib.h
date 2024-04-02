@@ -71,4 +71,9 @@ void document_queue();
 void demo_gyro_turn(int speed, int angleDegrees, double radius);
 void demo_gyro_drive(int speed, double distance);
 void demo_gyro_square_up(int speed);
+void square_up(int ending, int speed);
+void move(int l_speed,int r_speed);
+
+void demo_gyro_drive_right_black(int speed, double distance);
 #endif
+

@@ -10,3 +10,5 @@ void setup_for_purple();
 void setup_for_dropoff();
 void dropoff();
 void red_cube_approach();
+void loop();
+void seiz();
